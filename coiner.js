@@ -8,21 +8,35 @@ module.exports = function(initCoins) {
     nickel: 0.05,
     cent: 0.01
   }
+  const precision = getPrecision(coins)
 
   return coiner
 
   function coiner(change) {
     let hand = {}
+    change = change * Math.pow(10, precision)
 
     for(den in coins) {
-      let grab = Math.floor(change/coins[den])
-      
+      let coinValue = coins[den] * Math.pow(10, precision)
+
+      let grab = Math.floor(change/coinValue)
+
       if (grab > 0) {
         hand[den] = grab
-        change -= grab * coins[den]
+        change -= grab * coinValue
       }
     }
 
     return hand
+  }
+
+  function getPrecision(coins) {
+    let precision = 0;
+    for (den in coins) {
+      let valueString = coins[den].toString().split('.')
+      let coinPrecision = valueString[1] ? valueString[1].length : 0
+      if (coinPrecision > precision) precision = coinPrecision
+    }
+    return precision
   }
 }
