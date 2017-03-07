@@ -29,3 +29,29 @@ describe('Given yen', function() {
     assert.deepEqual(tab('Hello'), {})
   })
 })
+
+describe('Given US Dollar values', function() {
+  let tab = coiner({
+    "dollars": 1,
+    "quarters": 0.25,
+    "dimes": 0.10,
+    "nickels": 0.05,
+    "cents": 0.01
+  })
+
+  it('$1.67 should return dollars: 1, quarters: 2, dimes: 1, nickels: 1, cents: 2', function() {
+    assert.deepEqual(tab(1.67), {dollars: 1, quarters: 2, dimes: 1, nickels: 1, cents: 2})
+  })
+  it('73¢ should return quarters: 2, dimes: 2, cents: 3', function() {
+    assert.deepEqual(tab(0.73), {quarters: 2, dimes: 2, cents: 3})
+  })
+  it('$-5 should return an empty object', function() {
+    assert.deepEqual(tab(-5), {})
+  })
+  it('$0 should return an empty object', function() {
+    assert.deepEqual(tab(0), {})
+  })
+  it('Sending in a string should return an empty object', function() {
+    assert.deepEqual(tab('Hello'), {})
+  })
+})
