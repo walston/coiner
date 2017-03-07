@@ -16,4 +16,16 @@ describe('Given yen', function() {
   it('¥345 should return ¥100: 3, ¥10: 4, ¥5: 1', function() {
     assert.deepEqual(tab(345), {"¥100":3, "¥10":4, "¥5":1})
   })
+  it('¥73 should return ¥50: 1, ¥10: 2, ¥1: 3', function() {
+    assert.deepEqual(tab(73), {"¥50":1, "¥10":2, "¥1":3})
+  })
+  it('-¥5 should return an empty object', function() {
+    assert.deepEqual(tab(-5), {})
+  })
+  it('¥0 should return an empty object', function() {
+    assert.deepEqual(tab(0), {})
+  })
+  it('Sending in a string should return an empty object', function() {
+    assert.deepEqual(tab('Hello'), {})
+  })
 })
