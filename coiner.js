@@ -1,14 +1,8 @@
 #! node
 
 module.exports = function(initCoins) {
-  const coins = initCoins || {
-    dollar: 1,
-    quarter: 0.25,
-    dime: 0.10,
-    nickel: 0.05,
-    cent: 0.01
-  }
-  const precision = getPrecision(coins)
+  const coins = validateCoins(initCoins)
+  const precision = getPrecision(coins.values)
 
   return coiner
 
@@ -16,27 +10,42 @@ module.exports = function(initCoins) {
     let hand = {}
     change = change * Math.pow(10, precision)
 
-    for(den in coins) {
-      let coinValue = coins[den] * Math.pow(10, precision)
-
-      let grab = Math.floor(change/coinValue)
-
+    coins.values.forEach(function (v, i) {
+      let value = v * Math.pow(10, precision)
+      let grab = Math.floor(change/value)
       if (grab > 0) {
-        hand[den] = grab
-        change -= grab * coinValue
+        hand[coins.names[i]] = grab
+        change -= grab * value
       }
-    }
+    })
 
     return hand
   }
 
   function getPrecision(coins) {
-    let precision = 0;
-    for (den in coins) {
-      let valueString = coins[den].toString().split('.')
+    return coins.reduce(function(precision, value) {
+      let valueString = value.toString().split('.')
       let coinPrecision = valueString[1] ? valueString[1].length : 0
-      if (coinPrecision > precision) precision = coinPrecision
+      return (coinPrecision > precision) ? coinPrecision : precision
+    }, 0)
+  }
+
+  function validateCoins(coins) {
+    let names = []
+    let values = []
+
+    for (den in coins) {
+      let i = values.findIndex( n => n < coins[den] )
+      if (i >= 0) {
+        names = [].concat(names.slice(0,i), den, names.slice(i))
+        values = [].concat(values.slice(0,i), coins[den], values.slice(i))
+      }
+      else {
+        names = names.concat(den)
+        values = values.concat(coins[den])
+      }
     }
-    return precision
+
+    return { names, values }
   }
 }
