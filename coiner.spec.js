@@ -62,3 +62,10 @@ describe('Poorly ordered coins does not affect outcome', function() {
     assert.deepEqual(tab(7), {bigger: 1, coin: 2})
   })
 })
+
+describe('Crazy named coins will not break it', function() {
+  it('Given f({"万円": 10000, "十円": 10})(17000) should return 万円: 1, 十円: 700', function() {
+    let tab = coiner({"万円": 10000, "十円": 10})
+    assert.deepEqual(tab(17000), {"万円": 1, "十円": 700})
+  })
+})
