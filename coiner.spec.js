@@ -69,4 +69,3 @@ describe('Crazy named coins will not break it', function() {
     assert.deepEqual(tab(17000), {"万円": 1, "千円": 7})
   })
 })
-十
