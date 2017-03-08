@@ -64,8 +64,9 @@ describe('Poorly ordered coins does not affect outcome', function() {
 })
 
 describe('Crazy named coins will not break it', function() {
-  it('Given f({"万円": 10000, "十円": 10})(17000) should return 万円: 1, 十円: 700', function() {
-    let tab = coiner({"万円": 10000, "十円": 10})
-    assert.deepEqual(tab(17000), {"万円": 1, "十円": 700})
+  it('Given f({"万円": 10000, "千円": 1000})(17000) should return 万円: 1, 千円: 7', function() {
+    let tab = coiner({"万円": 10000, "千円": 1000})
+    assert.deepEqual(tab(17000), {"万円": 1, "千円": 7})
   })
 })
+十
