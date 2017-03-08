@@ -55,3 +55,10 @@ describe('Given US Dollar values', function() {
     assert.deepEqual(tab('Hello'), {})
   })
 })
+
+describe('Poorly ordered coins does not affect outcome', function() {
+  it('Given f({"coin": 1, "bigger": 5})(7) should return bigger: 1, coin: 2', function() {
+    let tab = coiner({"coin": 1, "bigger": 5})
+    assert.deepEqual(tab(7), {bigger: 1, coin: 2})
+  })
+})
