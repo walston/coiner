@@ -33,4 +33,4 @@ register(0.77) // < {"quarters": 3, "pennies": 2}
 the `coiner` module is a function that takes in an init object
 that object should consist of all names of coins & their respective values as `key: value` pairs.
 
-The result of calling that `coiner` function is a register object: it takes in a `Number` and returns an object consisting of only the necessary denominations required to rebuild the passed in value (although the remainder is floored, and as such 1.9¢ will be reduced to 1¢ upon return).
+The result of calling that `coiner` function is a `register` function: it takes in a `Number` and returns an object consisting of only the necessary denominations required to rebuild the passed in value (although the remainder is floored, and as such 1.9¢ will be reduced to 1¢ upon return).

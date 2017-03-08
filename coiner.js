@@ -4,9 +4,9 @@ module.exports = function(initCoins) {
   const coins = validateCoins(initCoins)
   const precision = getPrecision(coins.values)
 
-  return coiner
+  return register
 
-  function coiner(change) {
+  function register(change) {
     let hand = {}
     change = change * Math.pow(10, precision)
 
